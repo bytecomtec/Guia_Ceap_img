@@ -23,25 +23,31 @@
         <!-- Las imágenes se generarán aquí con JavaScript -->
     </div>
 
-    <script>
-        const contenedor = document.getElementById('visor-catalogo');
-        const totalPaginas = 150; // Ajusta al número real
-        const prefijo = 'pagina-'; // El nombre que usaste: pagina-001, pagina-002...
+<script>
+    const contenedor = document.getElementById('visor-catalogo');
+    
+    // CORRECCIÓN: Cambia 150 por 115
+    const totalPaginas = 115; 
+    
+    const prefijo = 'pagina-'; // Asegúrate que tus archivos se llamen pagina-000.webp a pagina-114.webp
 
-        for (let i = 0; i < totalPaginas; i++) {
-            // Formatear el número a 3 dígitos (000, 001, 002...)
-            const numeroPagina = String(i).padStart(3, '0');
-            
-            const img = document.createElement('img');
-            img.src = `${prefijo}${numeroPagina}.webp`;
-            img.className = 'pagina';
-            img.alt = `Página ${i + 1}`;
-            
-            // ACTIVAR LAZY LOADING NATIVO
-            img.loading = 'lazy'; 
-            
-            contenedor.appendChild(img);
-        }
-    </script>
+    for (let i = 0; i < totalPaginas; i++) {
+        // Genera el número con 3 dígitos: 000, 001, 002...
+        const numeroPagina = String(i).padStart(3, '0');
+        
+        const img = document.createElement('img');
+        img.src = `${prefijo}${numeroPagina}.webp`;
+        img.className = 'pagina';
+        img.alt = `Página ${i + 1}`;
+        img.loading = 'lazy'; 
+        
+        // Manejo de errores: Si una imagen no existe, no la muestra
+        img.onerror = function() {
+            this.style.display = 'none';
+        };
+        
+        contenedor.appendChild(img);
+    }
+</script>
 </body>
 </html>
